@@ -1,5 +1,50 @@
+@import url('https://fonts.googleapis.com/css2?family=Lobster&family=Poppins:wght@300;700;800&display=swap');
+
 * {
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+}
+
+/* Typography */
+
+h1 {
+    font-family: 'Lobster', cursive;
+    font-size: 55px;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #FFFFFF;
+    background-image: url("https://www.transparenttextures.com/patterns/climpek.png");
+
+}
+
+/* App section */
+
+.app {
+    margin-left: 16px; /*only for mobile */
+    margin-right: 16px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Login Section */
+
+.login-section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.login-text {
+    margin-top: 100px;
+    margin-bottom: 70px;
+    text-align: center;
+}
+
+.login-emoji {
+    margin-top: 50px;
 }
