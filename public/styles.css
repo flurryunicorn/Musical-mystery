@@ -10,7 +10,11 @@
 
 h1 {
     font-family: 'Lobster', cursive;
-    font-size: 55px;
+    font-size: 48px;
+}
+
+p {
+    font-size: 16px;
 }
 
 body {
@@ -34,17 +38,17 @@ body {
 /* Login Section */
 
 .login-section {
+    text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
 .login-text {
-    margin-top: 100px;
-    margin-bottom: 70px;
-    text-align: center;
+    margin-top: 10vh;
+    margin-bottom: 10vh;
 }
 
 .login-emoji {
-    margin-top: 50px;
+    margin-top: 10vh;
 }
