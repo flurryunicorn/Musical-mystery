@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Button, Fab, Zoom } from "@mui/material";
+import { Button, Fab, Zoom, Snackbar } from "@mui/material";
 import QuestionMarkIcon from "@mui/icons-material/QuestionMark";
 import Header from "./Header";
 import { buttonHighlight, buttonDefault, floatingBtn } from "../btnStyles";
@@ -11,6 +11,23 @@ export default function ModeSelection() {
   const [hardMode, hardModeSelected] = useState(false);
   const [artistMode, artistModeSelected] = useState(false);
   const [songMode, songModeSelected] = useState(false);
+  const [validOptions, setValidState] = useState(false);
+
+  const [snackbarState, setSnackbarState] = React.useState({
+    open: false,
+    vertical: "top",
+    horizontal: "left",
+  });
+
+  const { vertical, horizontal, open } = snackbarState;
+
+  const handleClick = (newState) => () => {
+    setSnackbarState({ open: true, ...newState });
+  };
+
+  const handleClose = () => {
+    setSnackbarState({ ...snackbarState, open: false });
+  };
 
   function selectedDifficutlyLevel(event) {
     if (event.target.name === easy) {
@@ -19,6 +36,11 @@ export default function ModeSelection() {
     } else if (event.target.name === hard) {
       hardModeSelected(true);
       easyModeSelected(false);
+    }
+    if (artistMode || songMode) {
+      setValidState(true);
+    } else {
+      setValidState(false);
     }
   }
 
@@ -29,6 +51,11 @@ export default function ModeSelection() {
     } else if (event.target.name === artist) {
       artistModeSelected(true);
       songModeSelected(false);
+    }
+    if (easyMode || hardMode) {
+      setValidState(true);
+    } else {
+      setValidState(false);
     }
   }
 
@@ -77,11 +104,27 @@ export default function ModeSelection() {
           Guess Artist
         </Button>
       </div>
-      <Link className='link-tag' to='/play'>
-        <Button variant='contained' size='large' style={buttonHighlight}>
+      <Link className='link-tag' to={validOptions && "/play"}>
+        <Button
+          onClick={handleClick({
+            vertical: "top",
+            horizontal: "left",
+          })}
+          variant='contained'
+          size='large'
+          style={buttonHighlight}
+        >
           Play
         </Button>
       </Link>
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        autoHideDuration={2000}
+        message='Select the settings first!'
+        key={vertical + horizontal}
+      />
       <Zoom in={true}>
         <div className='fab'>
           <Fab style={floatingBtn} aria-label='add'>
