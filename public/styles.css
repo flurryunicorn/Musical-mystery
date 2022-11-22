@@ -52,3 +52,49 @@ body {
 .login-emoji {
     margin-top: 10vh;
 }
+
+/* Mode Selection */
+
+.mode-selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    
+}
+
+.mode-selection .diff-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 2.5vh;
+    margin-top: 10vh;
+}
+
+.mode-selection .mode-btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5vh;
+    margin-bottom: 10vh;
+
+}
+
+.mode-selection .mode-btn-wrapper .guess-song-btn {
+    margin-bottom: 1.5vh;
+}
+
+.mode-selection .diff-btn-wrapper .easy-btn {
+    margin-bottom: 1.5vh;
+}
+
+.mode-selection .fab {
+    right: 20px;
+    bottom: 20px;
+    position: fixed;
+    z-index: 1;
+    display: block;
+
+}
+
+.mode-selection .link-tag {
+    text-decoration: none;
+}

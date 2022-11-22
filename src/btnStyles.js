@@ -1,7 +1,7 @@
 const buttonDefault = {
   backgroundColor: "#30343F",
   borderRadius: "10px",
-  width: "300px",
+  width: "350px",
 };
 
 const buttonClicked = {
@@ -16,4 +16,8 @@ const buttonHighlight = {
   width: "350px",
 };
 
-export { buttonDefault, buttonClicked, buttonHighlight };
+const floatingBtn = {
+  backgroundColor: "#30343F",
+};
+
+export { buttonDefault, buttonClicked, buttonHighlight, floatingBtn };

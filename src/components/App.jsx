@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import Login from "../components/Login";
 import ModeSelection from "../components/ModeSelection";
+import Game from "../components/Game";
+import { Route, Routes } from "react-router-dom";
 
 function App() {
   const CLIENT_ID = "bc6ae4d28d524aee88b94cdb1af1b1a3";
@@ -25,18 +27,26 @@ function App() {
       window.localStorage.setItem("token", token);
     }
     setToken(token);
-
   }, []);
 
   return (
     <div className='app'>
-      {!token ? (
-        <Login
-          endpoint={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+      <Routes>
+        <Route
+          path='/'
+          element={
+            !token ? (
+              <Login
+                endpoint={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}
+              />
+            ) : (
+              <ModeSelection />
+            )
+          }
         />
-      ) : (
-        <ModeSelection />
-      )}
+        <Route path='/play' element={<Game />} />
+        <Route path='/game-end' element={<h1>Your Score</h1>} />
+      </Routes>
     </div>
   );
 }
