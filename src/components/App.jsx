@@ -44,8 +44,7 @@ function App() {
             )
           }
         />
-        <Route path='/play' element={<Game />} />
-        <Route path='/game-end' element={<h1>Your Score</h1>} />
+        {token && <Route path='/play' element={<Game />} />}
       </Routes>
     </div>
   );

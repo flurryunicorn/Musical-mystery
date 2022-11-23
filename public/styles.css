@@ -2,9 +2,11 @@
 
 * {
     padding: 0;
-    margin: 0;
+    margin: 0 auto;
     box-sizing: border-box;
 }
+
+
 
 /* Typography */
 
@@ -24,9 +26,9 @@ body {
 
 }
 
-/* App section */
+/* Login Section */
 
-.app {
+.login-wrapper {
     margin-left: 16px; /*only for mobile */
     margin-right: 16px;
     height: 100vh;
@@ -34,8 +36,6 @@ body {
     align-items: center;
     justify-content: center;
 }
-
-/* Login Section */
 
 .login-section {
     text-align: center;
@@ -54,6 +54,15 @@ body {
 }
 
 /* Mode Selection */
+
+.mode-selection-wrapper {
+    margin-left: 16px; /*only for mobile */
+    margin-right: 16px;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
 
 .mode-selection {
     display: flex;
@@ -97,4 +106,114 @@ body {
 
 .mode-selection .link-tag {
     text-decoration: none;
+}
+
+/* Game section */
+
+.game-wrapper {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+.game-stats{
+    margin-top: 5vh;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.score, .life-lines-wrapper {
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.life-lines-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.life-count {
+    padding-top: 5px;
+    margin-left: 10px;
+}
+
+/* Spinner */
+.spinner-wrapper {
+    margin-top: 30px;
+}
+
+.circular-progress{
+    position: relative;
+    height: 300px;
+    width: 300px;
+    border-radius: 50%;
+    background: conic-gradient(#0A2463 3.6deg, #27A7FF 0deg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.circular-progress::before{
+    content: "";
+    position: absolute;
+    height: 250px;
+    width: 250px;
+    border-radius: 50%;
+    background-color: #fff;
+}
+.progress-value{
+    position: relative;
+    font-size: 70px;
+    font-weight: 600;
+    color: #0A2463;
+}
+
+.answer-btn-wrapper {
+    margin-top: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.answer-btn-wrapper {
+    margin-top: 35px;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+}
+
+.answer-btn-wrapper .option-1 {
+    margin-bottom: 15px;
+}
+
+.answer-btn-wrapper .option-2 {
+    margin-bottom: 15px;
+
+}
+.answer-btn-wrapper .option-3 {
+    margin-bottom: 20px;
+}
+
+@media  screen and (min-width: 1024px){
+    .answer-btn-wrapper {
+        margin-left: 100px;
+        margin-right: 100px;
+        margin-top: 15vh;
+        flex-direction: row;
+    }
+
+    .answer-btn-wrapper .option-1 {
+        margin-right: 15px;
+    }
+    
+    .answer-btn-wrapper .option-2 {
+        margin-left: 15px;
+        margin-right: 15px;
+    
+    }
+    .answer-btn-wrapper .option-3 {
+        margin-left: 15px;
+        margin-bottom: 15px;
+    }
 }

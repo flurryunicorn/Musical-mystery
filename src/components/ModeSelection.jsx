@@ -60,7 +60,7 @@ export default function ModeSelection() {
   }
 
   return (
-    <div className='mode-selection'>
+    <div className='mode-selection mode-selection-wrapper'>
       <Header />
       <div className='diff-btn-wrapper'>
         <Button
