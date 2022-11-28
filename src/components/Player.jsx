@@ -2,8 +2,11 @@ import React from "react";
 import SpotifyPlayer from "react-spotify-web-playback";
 
 export default function Player() {
+  const hide = {
+    display: "none",
+  };
   return (
-    <div style={{ display: "none" }}>
+    <div>
       <SpotifyPlayer
         autoPlay={true}
         play={true}

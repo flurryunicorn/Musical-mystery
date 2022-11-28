@@ -1,21 +1,24 @@
 import SpotifyWebApi from "spotify-web-api-js";
 
+/**
+ * @returns {object} - Returns an array object with the artist name, track name and the track uri
+ **/
 const spotifyApi = new SpotifyWebApi();
 spotifyApi.setAccessToken(sessionStorage.getItem("token"));
 
-export function playTrack() {
-  const options = {
-    context_uri: "spotify:album:3I80KvkjvXefH2xC5mLIpp",
-    offset: {
-      position: 5,
-    },
-    position_ms: 30,
-  };
-  spotifyApi.play(options, (err, data) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log(data);
-    }
+export default function getTracksData() {
+  const PLAYLIST_ID = "1eQerI0B5iOe6BI7oICP9R";
+  const tracksData = [];
+  spotifyApi.getPlaylist(PLAYLIST_ID).then((playlist) => {
+    const tracksArr = playlist.tracks.items;
+
+    tracksArr.forEach((trackObj) => {
+      tracksData.push({
+        artistName: trackObj.track.artists[0].name,
+        trackName: trackObj.track.name,
+        trackURI: trackObj.track.uri,
+      });
+    });
   });
+  return tracksData;
 }
