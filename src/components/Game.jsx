@@ -1,12 +1,14 @@
 import React from "react";
 import ScoreHeader from "./ScoreHeader";
 import Spinner from "./Spinner";
-import { choiceBtn, buttonHighlight } from "../btnStyles";
+import { choiceBtn } from "../btnStyles";
 import { Button } from "@mui/material";
+import Player from "./Player";
 
 export default function Game() {
   return (
     <div className='game .game-wrapper'>
+      <Player />
       <ScoreHeader />
       <Spinner />
       <div className='answer-btn-wrapper'>

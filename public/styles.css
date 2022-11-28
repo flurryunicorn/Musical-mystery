@@ -6,8 +6,6 @@
     box-sizing: border-box;
 }
 
-
-
 /* Typography */
 
 h1 {
@@ -148,7 +146,7 @@ body {
     height: 300px;
     width: 300px;
     border-radius: 50%;
-    background: conic-gradient(#0A2463 3.6deg, #27A7FF 0deg);
+    background: conic-gradient(#0A2463 0deg, #27A7FF 0deg);  /*3.6 deg */
     display: flex;
     align-items: center;
     justify-content: center;
