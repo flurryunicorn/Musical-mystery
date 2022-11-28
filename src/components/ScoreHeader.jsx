@@ -6,7 +6,7 @@ export default function ScoreHeader(props) {
     <div className='game-stats'>
       <div className='score-wrapper'>
         <p className='score'>
-          Score: <span>10</span>
+          Score: <span>0</span>
         </p>
       </div>
       <div className='life-lines-wrapper'>

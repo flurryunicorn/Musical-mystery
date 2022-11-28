@@ -1,7 +1,7 @@
 import React from "react";
 import SpotifyPlayer from "react-spotify-web-playback";
 
-export default function Player() {
+export default function Player(props) {
   const hide = {
     display: "none",
   };
@@ -9,9 +9,9 @@ export default function Player() {
     <div>
       <SpotifyPlayer
         autoPlay={true}
-        play={true}
+        play={props.play}
         token={sessionStorage.getItem("token")}
-        uris={["spotify:artist:6HQYnRM4OzToCYPpVBInuU"]}
+        uris={props.track}
       />
     </div>
   );

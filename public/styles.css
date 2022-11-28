@@ -181,17 +181,11 @@ body {
     align-items: center;
 }
 
-.answer-btn-wrapper .option-1 {
+.answer-btn-wrapper .option-btn {
+    margin-top: 15px;
     margin-bottom: 15px;
 }
 
-.answer-btn-wrapper .option-2 {
-    margin-bottom: 15px;
-
-}
-.answer-btn-wrapper .option-3 {
-    margin-bottom: 20px;
-}
 
 @media  screen and (min-width: 1024px){
     .answer-btn-wrapper {
@@ -201,17 +195,9 @@ body {
         flex-direction: row;
     }
 
-    .answer-btn-wrapper .option-1 {
+    .answer-btn-wrapper .option-btn {
+        margin-right: 15px;
         margin-right: 15px;
     }
     
-    .answer-btn-wrapper .option-2 {
-        margin-left: 15px;
-        margin-right: 15px;
-    
-    }
-    .answer-btn-wrapper .option-3 {
-        margin-left: 15px;
-        margin-bottom: 15px;
-    }
 }

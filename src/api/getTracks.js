@@ -6,18 +6,16 @@ import SpotifyWebApi from "spotify-web-api-js";
 const spotifyApi = new SpotifyWebApi();
 spotifyApi.setAccessToken(sessionStorage.getItem("token"));
 
-export default function getTracksData() {
+export default async function getTracksData() {
   const PLAYLIST_ID = "1eQerI0B5iOe6BI7oICP9R";
   const tracksData = [];
-  spotifyApi.getPlaylist(PLAYLIST_ID).then((playlist) => {
-    const tracksArr = playlist.tracks.items;
-
-    tracksArr.forEach((trackObj) => {
-      tracksData.push({
-        artistName: trackObj.track.artists[0].name,
-        trackName: trackObj.track.name,
-        trackURI: trackObj.track.uri,
-      });
+  const playlist = await spotifyApi.getPlaylist(PLAYLIST_ID);
+  const tracksArr = playlist.tracks.items;
+  tracksArr.forEach((trackObj) => {
+    tracksData.push({
+      artistName: trackObj.track.artists[0].name,
+      trackName: trackObj.track.name,
+      trackURI: trackObj.track.uri,
     });
   });
   return tracksData;
