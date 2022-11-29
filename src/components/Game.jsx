@@ -59,7 +59,7 @@ export default function Game(props) {
 
   function playTrackOnClick() {
     setPlay(true);
-    setContent("GO!");
+    setContent("Go!");
   }
 
   return (
