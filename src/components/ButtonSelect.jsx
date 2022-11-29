@@ -20,6 +20,7 @@ export default function ButtonSelect(props) {
       variant='contained'
       size='large'
       style={isClicked ? buttonHighlight : choiceBtn}
+      disabled={props.disable}
     >
       {props.content}
     </Button>

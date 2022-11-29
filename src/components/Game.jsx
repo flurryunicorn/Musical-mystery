@@ -4,12 +4,16 @@ import Spinner from "./Spinner";
 import Player from "./Player";
 import getTracksData from "../api/getTracks";
 import ButtonSelect from "./ButtonSelect";
-import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+
+import CircularProgress from "@mui/material/CircularProgress";
 
 const LIFE_COUNT = 3;
 const START_SCORE = 0;
-const DELAY = 1000;
+const DELAY = 2000;
 const THREE_TRACKS = 3;
+const PLAYING_ICON = "🎧";
+const CORRECT_GUESS_ICON = "😎";
+const INCORRECT_GUESS_ICON = "🙄";
 
 // Select thre random track from an array
 function getRandomTracks(tracks, totalTracksReq) {
@@ -41,46 +45,68 @@ export default function Game(props) {
         setTracksLoaded(true);
       }, DELAY);
     }
-  }, [allTracks, roundsPlayed]);
+  }, [allTracks, roundsPlayed]); // gets a new list every round
 
   // handle button click for guess
   function checkGuess(checkString) {
+    if (checkString === threeRandomTracks[0].artistName) {
+      setContent(CORRECT_GUESS_ICON);
+    } else {
+      setContent(INCORRECT_GUESS_ICON);
+    }
+    setTimeout(() => {
+      setContent(PLAYING_ICON);
+    }, DELAY);
     setRoundsPlayed(roundsPlayed + 1);
   }
 
   // set content for the spinner
-  const size = {
-    fontSize: "150px",
-  };
-
-  // let content = <PlayArrowIcon style={size} />;
   const [play, setPlay] = useState(false);
-  const [content, setContent] = useState(<PlayArrowIcon style={size} />);
+  // const [content, setContent] = useState(<PlayArrowIcon style={size} />);
+  const [content, setContent] = useState(<CircularProgress />);
+
+  function playerReady(spinnerContent) {
+    setContent(spinnerContent);
+  }
 
   function playTrackOnClick() {
     setPlay(true);
-    setContent("Go!");
+    setContent(PLAYING_ICON);
   }
 
   return (
     <div className='game .game-wrapper'>
-      <Player track={threeRandomTracks[0].trackURI} play={play} />;
+      <Player
+        handleReady={playerReady}
+        track={threeRandomTracks[0].trackURI}
+        play={play}
+      />
+      ;
       <ScoreHeader score={0} chances={3} />
       <Spinner playTrack={playTrackOnClick} content={content} />
       <div className='answer-btn-wrapper'>
         <ButtonSelect
+          disable={!play}
           checkMove={checkGuess}
-          content={tracksLoaded ? threeRandomTracks[0].artistName : "Loading"}
+          content={
+            tracksLoaded && play ? threeRandomTracks[0].artistName : "Loading"
+          }
           resetDelay={DELAY}
         />
         <ButtonSelect
+          disable={!play}
           checkMove={checkGuess}
-          content={tracksLoaded ? threeRandomTracks[1].artistName : "Loading"}
+          content={
+            tracksLoaded && play ? threeRandomTracks[1].artistName : "Loading"
+          }
           resetDelay={DELAY}
         />
         <ButtonSelect
+          disable={!play}
           checkMove={checkGuess}
-          content={tracksLoaded ? threeRandomTracks[2].artistName : "Loading"}
+          content={
+            tracksLoaded && play ? threeRandomTracks[2].artistName : "Loading"
+          }
           resetDelay={DELAY}
         />
       </div>
