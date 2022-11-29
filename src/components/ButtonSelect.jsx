@@ -8,6 +8,9 @@ export default function ButtonSelect(props) {
   function handleClick() {
     setClicked(true);
     props.checkMove(props.content);
+    setTimeout(() => {
+      setClicked(false);
+    }, props.resetDelay);
   }
 
   return (

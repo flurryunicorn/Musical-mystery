@@ -4,88 +4,84 @@ import Spinner from "./Spinner";
 import Player from "./Player";
 import getTracksData from "../api/getTracks";
 import ButtonSelect from "./ButtonSelect";
+import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+
+const LIFE_COUNT = 3;
+const START_SCORE = 0;
+const DELAY = 1000;
+const THREE_TRACKS = 3;
 
 // Select thre random track from an array
-function selectThreeTracks(tracks, totalTracks) {
+function getRandomTracks(tracks, totalTracksReq) {
   const randomTracks = [];
-  for (let i = 0; i < totalTracks; i++) {
+  for (let i = 0; i < totalTracksReq; i++) {
     const index = Math.floor(Math.random() * tracks.length);
     randomTracks.push(tracks[index]);
   }
   return randomTracks;
 }
 
-export default function Game() {
+export default function Game(props) {
   const [allTracks, setAllTracks] = useState({});
-  const [threeRandomTracks, setThreeRandomTracks] = useState([]);
-  const [isRandomTracksLoaded, setIsRandomTracksLoaded] = useState(false);
-  const [correctTrack, setCorrectTrack] = useState({});
-  const [correctGuess, setCorrectGuess] = useState(false);
-  const [spinnerContent, setSpinnerContent] = useState("GO!");
-  const [play, setPlay] = useState('');
 
-  // get the tracks
+  // fetch all tracks from a playlist
   useEffect(() => {
     getTracksData().then((tracks) => setAllTracks(tracks));
   }, []);
 
-  // get three random tracks from all the tracks
+  // get three random tracks
+  const [threeRandomTracks, setThreeRandomTracks] = useState([{}]);
+  const [tracksLoaded, setTracksLoaded] = useState(false);
+  const [roundsPlayed, setRoundsPlayed] = useState(0);
+
   useEffect(() => {
     if (allTracks.length > 0) {
-      const totalTracks = 3;
-      const threeTracks = selectThreeTracks(allTracks, totalTracks);
-      console.log(threeTracks);
-      setThreeRandomTracks(threeTracks);
-      setIsRandomTracksLoaded(true);
+      setTimeout(() => {
+        setThreeRandomTracks(getRandomTracks(allTracks, THREE_TRACKS));
+        setTracksLoaded(true);
+      }, DELAY);
     }
-  }, [allTracks]);
+  }, [allTracks, roundsPlayed]);
 
-  // select correct track
-  useEffect(() => {
-    if (threeRandomTracks.length > 0) {
-      const randomIndex = Math.floor(Math.random() * threeRandomTracks.length);
-      setCorrectTrack(threeRandomTracks[randomIndex]);
-      setPlay(true);
-    }
-  }, [isRandomTracksLoaded]);
+  // handle button click for guess
+  function checkGuess(checkString) {
+    setRoundsPlayed(roundsPlayed + 1);
+  }
 
-  // play the music
+  // set content for the spinner
+  const size = {
+    fontSize: "150px",
+  };
 
-  //check win
-  function checkGuess(btnContent) {
-    if (btnContent === correctTrack.artistName) {
-      setCorrectGuess(true);
-      setSpinnerContent("😎");
-    } else {
-      setCorrectGuess(false);
-      setSpinnerContent("🤨");
-    }
-    setPlay(false);
+  // let content = <PlayArrowIcon style={size} />;
+  const [play, setPlay] = useState(false);
+  const [content, setContent] = useState(<PlayArrowIcon style={size} />);
+
+  function playTrackOnClick() {
+    setPlay(true);
+    setContent("GO!");
   }
 
   return (
     <div className='game .game-wrapper'>
-      <Player track={correctTrack.trackURI} play={play} />
-      <ScoreHeader />
-      <Spinner content={spinnerContent} />
+      <Player track={threeRandomTracks[0].trackURI} play={play} />;
+      <ScoreHeader score={0} chances={3} />
+      <Spinner playTrack={playTrackOnClick} content={content} />
       <div className='answer-btn-wrapper'>
         <ButtonSelect
           checkMove={checkGuess}
-          content={
-            isRandomTracksLoaded ? threeRandomTracks[0].artistName : "Loading"
-          }
+          content={tracksLoaded ? threeRandomTracks[0].artistName : "Loading"}
+          resetDelay={DELAY}
         />
         <ButtonSelect
           checkMove={checkGuess}
-          content={
-            isRandomTracksLoaded ? threeRandomTracks[1].artistName : "Loading"
-          }
+          content={tracksLoaded ? threeRandomTracks[1].artistName : "Loading"}
+          resetDelay={DELAY}
         />
         <ButtonSelect
           checkMove={checkGuess}
-          content={
-            isRandomTracksLoaded ? threeRandomTracks[2].artistName : "Loading"
-          }
+          content={tracksLoaded ? threeRandomTracks[2].artistName : "Loading"}
+          resetDelay={DELAY}
         />
       </div>
     </div>
