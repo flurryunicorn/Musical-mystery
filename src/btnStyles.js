@@ -2,6 +2,7 @@ const buttonDefault = {
   backgroundColor: "#30343F",
   borderRadius: "10px",
   width: "350px",
+  color: "white",
 };
 
 const choiceBtn = {

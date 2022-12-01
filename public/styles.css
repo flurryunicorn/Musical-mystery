@@ -13,6 +13,11 @@ h1 {
     font-size: 48px;
 }
 
+h2 {
+    font-size: 30px;
+    font-weight: bold;
+}
+
 p {
     font-size: 16px;
 }
@@ -201,3 +206,50 @@ body {
     }
     
 }
+
+/* Game over screen */
+/* NOTE: go = Game over */
+
+.game-over-wrapper { 
+    margin-left: 16px; /*only for mobile */
+    margin-right: 16px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.game-over-wrapper h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: 60px;
+    color: #0A2463;
+}
+
+.go-scores-wrapper {
+    margin-top: 15vh;
+    margin-bottom: 15vh;
+    display: flex;
+    flex-direction: column;
+    color: #0A2463;
+}
+
+.go-btn-wrapper {
+    display:flex;
+    flex-direction: column;
+}
+
+.go-btn-wrapper .go-play-again-btn {
+    margin-bottom: 3vh;
+}
+
+@media  screen and (min-width: 1024px){
+    .go-btn-wrapper {
+        flex-direction: row;
+    }
+
+    .go-btn-wrapper .go-play-again-btn {
+        margin-bottom: 0;
+        margin-right: 100px;
+    }
+}    

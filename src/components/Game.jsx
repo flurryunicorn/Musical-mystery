@@ -111,13 +111,12 @@ export default function Game(props) {
   }
 
   return (
-    <div className='game .game-wrapper'>
+    <div className='game game-wrapper'>
       <Player
         handleReady={playerReady}
         track={correctTrack.trackURI}
         play={play}
       />
-      ;
       <ScoreHeader score={scoreCount} chances={lifeCount} />
       <Spinner playTrack={playTrackOnClick} content={content} />
       <div className='answer-btn-wrapper'>

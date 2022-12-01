@@ -3,6 +3,7 @@ import Login from "../components/Login";
 import ModeSelection from "../components/ModeSelection";
 import Game from "../components/Game";
 import { Route, Routes } from "react-router-dom";
+import GameOver from "./GameOver";
 
 function App() {
   const CLIENT_ID = "bc6ae4d28d524aee88b94cdb1af1b1a3";
@@ -39,7 +40,7 @@ function App() {
 
   return (
     <div className='app'>
-      <Routes>
+      {/* <Routes>
         <Route
           path='/'
           element={
@@ -54,7 +55,8 @@ function App() {
           }
         />
         {token && <Route path='/play' element={<Game />} />}
-      </Routes>
+      </Routes> */}
+      <GameOver />
     </div>
   );
 }
