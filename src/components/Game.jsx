@@ -5,6 +5,7 @@ import Player from "./Player";
 import getTracksData from "../api/getTracks";
 import ButtonSelect from "./ButtonSelect";
 import CircularProgress from "@mui/material/CircularProgress";
+import { Link } from "react-router-dom";
 
 const LIFE_COUNT = 3;
 const START_SCORE = 0;
@@ -76,7 +77,6 @@ export default function Game(props) {
     /* NOTE: Set to 1 because when the button is clicked it will have the previous state althought
     the UI is updated to 0  Need to fix but this will do for now.*/
     if (lifeCount !== 1) {
-      console.log(lifeCount);
       setTimeout(() => {
         setContent(PLAYING_ICON);
       }, DELAY);
@@ -120,30 +120,32 @@ export default function Game(props) {
       <ScoreHeader score={scoreCount} chances={lifeCount} />
       <Spinner playTrack={playTrackOnClick} content={content} />
       <div className='answer-btn-wrapper'>
-        <ButtonSelect
-          disable={!play}
-          checkMove={checkGuess}
-          content={
-            tracksLoaded && play ? threeRandomTracks[0].artistName : "..."
-          }
-          resetDelay={DELAY}
-        />
-        <ButtonSelect
-          disable={!play}
-          checkMove={checkGuess}
-          content={
-            tracksLoaded && play ? threeRandomTracks[1].artistName : "..."
-          }
-          resetDelay={DELAY}
-        />
-        <ButtonSelect
-          disable={!play}
-          checkMove={checkGuess}
-          content={
-            tracksLoaded && play ? threeRandomTracks[2].artistName : "..."
-          }
-          resetDelay={DELAY}
-        />
+        <Link to={lifeCount === 1 && "/game-over"}>
+          <ButtonSelect
+            disable={!play}
+            checkMove={checkGuess}
+            content={
+              tracksLoaded && play ? threeRandomTracks[0].artistName : "..."
+            }
+            resetDelay={DELAY}
+          />
+          <ButtonSelect
+            disable={!play}
+            checkMove={checkGuess}
+            content={
+              tracksLoaded && play ? threeRandomTracks[1].artistName : "..."
+            }
+            resetDelay={DELAY}
+          />
+          <ButtonSelect
+            disable={!play}
+            checkMove={checkGuess}
+            content={
+              tracksLoaded && play ? threeRandomTracks[2].artistName : "..."
+            }
+            resetDelay={DELAY}
+          />
+        </Link>
       </div>
     </div>
   );

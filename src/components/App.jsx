@@ -40,7 +40,7 @@ function App() {
 
   return (
     <div className='app'>
-      {/* <Routes>
+      <Routes>
         <Route
           path='/'
           element={
@@ -55,8 +55,8 @@ function App() {
           }
         />
         {token && <Route path='/play' element={<Game />} />}
-      </Routes> */}
-      <GameOver />
+        <Route path='/game-over' element={<GameOver />} />
+      </Routes>
     </div>
   );
 }
