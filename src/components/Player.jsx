@@ -8,7 +8,7 @@ export default function Player(props) {
   };
 
   const size = {
-    fontSize: "150px",
+    fontSize: "100px",
     marginTop: "30px",
   };
 

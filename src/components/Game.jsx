@@ -4,16 +4,17 @@ import Spinner from "./Spinner";
 import Player from "./Player";
 import getTracksData from "../api/getTracks";
 import ButtonSelect from "./ButtonSelect";
-
 import CircularProgress from "@mui/material/CircularProgress";
 
 const LIFE_COUNT = 3;
 const START_SCORE = 0;
 const DELAY = 2000;
 const THREE_TRACKS = 3;
-const PLAYING_ICON = "🎧";
+const PLAYING_ICON = "🔊";
 const CORRECT_GUESS_ICON = "😎";
-const INCORRECT_GUESS_ICON = "🙄";
+const INCORRECT_GUESS_ICON = "😐";
+const SCORE_INCREMENT = 10;
+const GAME_OVER = "😞";
 
 // Select thre random track from an array
 function getRandomTracks(tracks, totalTracksReq) {
@@ -45,24 +46,46 @@ export default function Game(props) {
         setTracksLoaded(true);
       }, DELAY);
     }
-  }, [allTracks, roundsPlayed]); // gets a new list every round
+  }, [allTracks, roundsPlayed]); // gets a new list every round and initially when all tracks are loaded
 
   // handle button click for guess
+  const [lifeCount, setLifeCount] = useState(LIFE_COUNT);
+  const [scoreCount, setScoreCount] = useState(START_SCORE);
+  const [isOver, setIsOver] = useState(false);
+
   function checkGuess(checkString) {
     if (checkString === threeRandomTracks[0].artistName) {
       setContent(CORRECT_GUESS_ICON);
+      setScoreCount(scoreCount + SCORE_INCREMENT);
     } else {
       setContent(INCORRECT_GUESS_ICON);
+      setLifeCount(lifeCount - 1);
     }
-    setTimeout(() => {
-      setContent(PLAYING_ICON);
-    }, DELAY);
+
+    /* NOTE: Set to 1 because when the button is clicked it will have the previous state althought
+    the UI is updated to 0  Need to fix but this will do for now.*/
+    if (lifeCount !== 1) {
+      console.log(lifeCount);
+      setTimeout(() => {
+        setContent(PLAYING_ICON);
+      }, DELAY);
+    }
+
     setRoundsPlayed(roundsPlayed + 1);
   }
 
+  // check game over
+  useEffect(() => {
+    if (lifeCount === 0) {
+      setIsOver(true);
+      setPlay(false);
+      setContent(GAME_OVER);
+      // run the other component
+    }
+  }, [lifeCount]);
+
   // set content for the spinner
   const [play, setPlay] = useState(false);
-  // const [content, setContent] = useState(<PlayArrowIcon style={size} />);
   const [content, setContent] = useState(<CircularProgress />);
 
   function playerReady(spinnerContent) {
@@ -70,8 +93,10 @@ export default function Game(props) {
   }
 
   function playTrackOnClick() {
-    setPlay(true);
-    setContent(PLAYING_ICON);
+    if (!isOver) {
+      setPlay(true);
+      setContent(PLAYING_ICON);
+    }
   }
 
   return (
@@ -82,14 +107,14 @@ export default function Game(props) {
         play={play}
       />
       ;
-      <ScoreHeader score={0} chances={3} />
+      <ScoreHeader score={scoreCount} chances={lifeCount} />
       <Spinner playTrack={playTrackOnClick} content={content} />
       <div className='answer-btn-wrapper'>
         <ButtonSelect
           disable={!play}
           checkMove={checkGuess}
           content={
-            tracksLoaded && play ? threeRandomTracks[0].artistName : "Loading"
+            tracksLoaded && play ? threeRandomTracks[0].artistName : "..."
           }
           resetDelay={DELAY}
         />
@@ -97,7 +122,7 @@ export default function Game(props) {
           disable={!play}
           checkMove={checkGuess}
           content={
-            tracksLoaded && play ? threeRandomTracks[1].artistName : "Loading"
+            tracksLoaded && play ? threeRandomTracks[1].artistName : "..."
           }
           resetDelay={DELAY}
         />
@@ -105,7 +130,7 @@ export default function Game(props) {
           disable={!play}
           checkMove={checkGuess}
           content={
-            tracksLoaded && play ? threeRandomTracks[2].artistName : "Loading"
+            tracksLoaded && play ? threeRandomTracks[2].artistName : "..."
           }
           resetDelay={DELAY}
         />
