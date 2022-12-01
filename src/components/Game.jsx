@@ -48,13 +48,24 @@ export default function Game(props) {
     }
   }, [allTracks, roundsPlayed]); // gets a new list every round and initially when all tracks are loaded
 
+  // Set correct selection
+  const [correctTrack, setCorrectTrack] = useState({});
+
+  useEffect(() => {
+    if (threeRandomTracks.length === THREE_TRACKS) {
+      const index = Math.floor(Math.random() * THREE_TRACKS);
+      console.log(index);
+      setCorrectTrack(threeRandomTracks[index]);
+    }
+  }, [threeRandomTracks]);
+
   // handle button click for guess
   const [lifeCount, setLifeCount] = useState(LIFE_COUNT);
   const [scoreCount, setScoreCount] = useState(START_SCORE);
   const [isOver, setIsOver] = useState(false);
 
   function checkGuess(checkString) {
-    if (checkString === threeRandomTracks[0].artistName) {
+    if (checkString === correctTrack.artistName) {
       setContent(CORRECT_GUESS_ICON);
       setScoreCount(scoreCount + SCORE_INCREMENT);
     } else {
@@ -103,7 +114,7 @@ export default function Game(props) {
     <div className='game .game-wrapper'>
       <Player
         handleReady={playerReady}
-        track={threeRandomTracks[0].trackURI}
+        track={correctTrack.trackURI}
         play={play}
       />
       ;
