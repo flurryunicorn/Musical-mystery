@@ -42,6 +42,7 @@ export default function Game(props) {
 
   useEffect(() => {
     if (allTracks.length > 0) {
+      // delay here so that the users have to adjust
       setTimeout(() => {
         setThreeRandomTracks(getRandomTracks(allTracks, THREE_TRACKS));
         setTracksLoaded(true);
@@ -53,12 +54,12 @@ export default function Game(props) {
   const [correctTrack, setCorrectTrack] = useState({});
 
   useEffect(() => {
-    if (threeRandomTracks.length === THREE_TRACKS) {
+    if (threeRandomTracks.length === THREE_TRACKS && allTracks.length > 0) {
       const index = Math.floor(Math.random() * THREE_TRACKS);
       console.log(index);
       setCorrectTrack(threeRandomTracks[index]);
     }
-  }, [threeRandomTracks]);
+  }, [threeRandomTracks, allTracks]);
 
   // handle button click for guess
   const [lifeCount, setLifeCount] = useState(LIFE_COUNT);
@@ -112,6 +113,7 @@ export default function Game(props) {
 
   return (
     <div className='game game-wrapper'>
+      {console.log(correctTrack.trackURI)}
       <Player
         handleReady={playerReady}
         track={correctTrack.trackURI}
@@ -125,7 +127,7 @@ export default function Game(props) {
             disable={!play}
             checkMove={checkGuess}
             content={
-              tracksLoaded && play ? threeRandomTracks[0].artistName : "..."
+              tracksLoaded && play ? threeRandomTracks[0]["artistName"] : "..."
             }
             resetDelay={DELAY}
           />
@@ -133,7 +135,7 @@ export default function Game(props) {
             disable={!play}
             checkMove={checkGuess}
             content={
-              tracksLoaded && play ? threeRandomTracks[1].artistName : "..."
+              tracksLoaded && play ? threeRandomTracks[1]["artistName"] : "..."
             }
             resetDelay={DELAY}
           />
@@ -141,7 +143,7 @@ export default function Game(props) {
             disable={!play}
             checkMove={checkGuess}
             content={
-              tracksLoaded && play ? threeRandomTracks[2].artistName : "..."
+              tracksLoaded && play ? threeRandomTracks[2]["artistName"] : "..."
             }
             resetDelay={DELAY}
           />
