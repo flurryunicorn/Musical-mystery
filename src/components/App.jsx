@@ -46,7 +46,6 @@ function App() {
           element={
             !token ? (
               <Login
-                // endpoint={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scopes=${SCOPES}`}
                 endpoint={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&response_type=token&redirect_uri=http://localhost:3000&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`}
               />
             ) : (

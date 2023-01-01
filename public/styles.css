@@ -29,6 +29,10 @@ body {
 
 }
 
+.link-deco {
+    text-decoration: none;
+}
+
 /* Login Section */
 
 .login-wrapper {
@@ -189,6 +193,10 @@ body {
 .answer-btn-wrapper .option-btn {
     margin-top: 15px;
     margin-bottom: 15px;
+}
+
+.answer-btn {
+    text-decoration: none;
 }
 
 

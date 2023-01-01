@@ -122,7 +122,7 @@ export default function Game(props) {
       <ScoreHeader score={scoreCount} chances={lifeCount} />
       <Spinner playTrack={playTrackOnClick} content={content} />
       <div className='answer-btn-wrapper'>
-        <Link to={lifeCount === 1 && "/game-over"}>
+        <Link className="link-deco" to={lifeCount === 1 && "/game-over"}>
           <ButtonSelect
             disable={!play}
             checkMove={checkGuess}
