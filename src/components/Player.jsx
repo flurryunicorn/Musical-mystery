@@ -19,6 +19,9 @@ export default function Player(props) {
       props.handleReady(<PlayArrowIcon style={size} />);
       setPlayerActive(true);
     }
+    if (playerActive) {
+      props.handleStartTimer(state.progressMs);
+    }
   }
 
   return (

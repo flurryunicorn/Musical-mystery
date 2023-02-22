@@ -6,9 +6,9 @@ import { Route, Routes } from "react-router-dom";
 import GameOver from "./GameOver";
 
 function App() {
-  const CLIENT_ID = "bc6ae4d28d524aee88b94cdb1af1b1a3";
   const REDIRECT_URI = "http://localhost:3000";
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize";
+
   const RESPONSE_TYPE = "token";
   const SCOPES = [
     "user-read-private",
@@ -46,7 +46,7 @@ function App() {
           element={
             !token ? (
               <Login
-                endpoint={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&response_type=token&redirect_uri=http://localhost:3000&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`}
+                endpoint={`${AUTH_ENDPOINT}?client_id=${process.env.REACT_APP_CLIENT_ID}&response_type=token&redirect_uri=http://localhost:3000&scope=streaming%20user-read-email%20user-read-private%20user-library-read%20user-library-modify%20user-read-playback-state%20user-modify-playback-state`}
               />
             ) : (
               <ModeSelection />

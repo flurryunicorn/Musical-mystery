@@ -5,15 +5,14 @@ export default function Spinner(props) {
   const progressEndValue = 100;
 
   useEffect(() => {
-    console.log("activate");
-    if (progressStartValue <= progressEndValue && props.reset) {
+    if (progressStartValue <= progressEndValue && props.startTimer) {
       const interval = setInterval(() => {
         setprogressStartValue(progressStartValue + 1);
       }, props.progressValue);
       return () => clearInterval(interval);
     }
-    // setprogressStartValue(0);
-  }, [progressStartValue, props.progressValue, props.reset]);
+    setprogressStartValue(0); //need this to reset the loader animation
+  }, [progressStartValue, props.progressValue, props.startTimer]);
 
   return (
     <div className='spinner-wrapper'>

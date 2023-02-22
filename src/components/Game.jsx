@@ -29,6 +29,7 @@ function getRandomTracks(tracks, totalTracksReq) {
 
 export default function Game(props) {
   const [allTracks, setAllTracks] = useState({});
+  const progressValue = 100;
 
   // fetch all tracks from a playlist
   useEffect(() => {
@@ -56,7 +57,6 @@ export default function Game(props) {
   useEffect(() => {
     if (threeRandomTracks.length === THREE_TRACKS && allTracks.length > 0) {
       const index = Math.floor(Math.random() * THREE_TRACKS);
-      console.log(index);
       setCorrectTrack(threeRandomTracks[index]);
     }
   }, [threeRandomTracks, allTracks]);
@@ -65,8 +65,10 @@ export default function Game(props) {
   const [lifeCount, setLifeCount] = useState(LIFE_COUNT);
   const [scoreCount, setScoreCount] = useState(START_SCORE);
   const [isOver, setIsOver] = useState(false);
+  const [trackStarted, setTrackStarted] = useState(false);
 
   function checkGuess(checkString) {
+    setTrackStarted(false);
     if (checkString === correctTrack.artistName) {
       setContent(CORRECT_GUESS_ICON);
       setScoreCount(scoreCount + SCORE_INCREMENT);
@@ -96,12 +98,20 @@ export default function Game(props) {
     }
   }, [lifeCount]);
 
-  // set content for the spinner
+  // set content for the spinner [ callback ]
   const [play, setPlay] = useState(false);
   const [content, setContent] = useState(<CircularProgress />);
 
   function playerReady(spinnerContent) {
     setContent(spinnerContent);
+  }
+
+  // callback func from the spinner component
+  function triggerTimer(progressMs) {
+    console.log(progressMs);
+    if (progressMs === 0) {
+      setTrackStarted(true);
+    }
   }
 
   function playTrackOnClick() {
@@ -111,18 +121,41 @@ export default function Game(props) {
     }
   }
 
+  useEffect(() => {
+    if (play) {
+      let interval = setInterval(() => {
+        setTrackStarted(false);
+        setLifeCount(lifeCount - 1);
+        /* NOTE: Set to 1 because when the button is clicked it will have the previous state althought
+        the UI is updated to 0  Need to fix but this will do for now.*/
+        if (lifeCount !== 1) {
+          setTimeout(() => {
+            setContent(PLAYING_ICON);
+          }, DELAY);
+        }
+        setRoundsPlayed(roundsPlayed + 1);
+      }, 10000);
+      return () => clearInterval(interval);
+    }
+  });
+
   return (
     <div className='game game-wrapper'>
-      {console.log(correctTrack.trackURI)}
       <Player
         handleReady={playerReady}
+        handleStartTimer={triggerTimer}
         track={correctTrack.trackURI}
         play={play}
       />
       <ScoreHeader score={scoreCount} chances={lifeCount} />
-      <Spinner playTrack={playTrackOnClick} content={content} />
+      <Spinner
+        playTrack={playTrackOnClick}
+        content={content}
+        progressValue={progressValue}
+        startTimer={trackStarted}
+      />
       <div className='answer-btn-wrapper'>
-        <Link className="link-deco" to={lifeCount === 1 && "/game-over"}>
+        <Link className='link-deco' to={isOver && "/game-over"}>
           <ButtonSelect
             disable={!play}
             checkMove={checkGuess}
